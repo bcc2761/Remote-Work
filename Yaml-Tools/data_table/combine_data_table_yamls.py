@@ -77,6 +77,7 @@ def combine_yaml(files):
                     data_table['data_table'].append(entry)
     return data_table
 
+
 def main():
     #: parse user input
     @click.command()
@@ -99,7 +100,7 @@ def main():
                     '--force',
                     is_flag=True,
                     help="Overwrite the output data table yaml file.")
-    @click.version_option(version='1.0',
+    @click.version_option(version=__version__,
                           prog_name='combine_data_table_yaml')
     def combine_data_table_yaml(in_files, out_file, force):
         """
@@ -114,6 +115,7 @@ def main():
                 yaml.dump(data_table, myfile, default_flow_style=False)
         except Exception as err:
             raise SystemExit(err)
+
 
 if __name__ == "__main__":
     main()

@@ -139,9 +139,10 @@ class DataType:
         with open(self.yaml_table_file, self.out_file_op) as myfile:
             yaml.dump(self.data_type, myfile, sort_keys=False)
 
+
 def main():
     #: parse user input
-    @click.command(name='data_table_to_yaml')
+    @click.command()
     @click.option('-f',
                     '--in_file',
                     type=str,
@@ -176,6 +177,7 @@ def main():
             test_class.convert_data_table()
         except Exception as err:
             raise SystemError(err)
+
 
 if __name__ == "__main__":
     main()

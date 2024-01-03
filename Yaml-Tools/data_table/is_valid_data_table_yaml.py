@@ -61,8 +61,9 @@ def check_region(my_type, start, end):
     """Check if the region is defined correctly. Crashes if it not. """
     if (start > end): raise Exception(my_type+"_start is greater than "+my_type+"_end")
 
+
 def main():
-    @click.command(name='is_valid_data_table_yaml')
+    @click.command()
     @click.option('-f',
                     '--file',
                     type=str,
@@ -121,6 +122,7 @@ def main():
                         lon_start = entry["lon_start"]
                         lon_end = entry["lon_end"]
                         check_region("lon", lon_start, lon_end)
+
 
 if __name__ == "__main__":
     main()
