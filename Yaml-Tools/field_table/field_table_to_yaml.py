@@ -46,6 +46,8 @@ def main():
                   default=False,
                   help='Increase verbosity')
     def convert_field_table_to_yaml(file, verbose):
+        global gverbose
+        gverbose = verbose
         field_table_name = file
 
         if verbose:
@@ -83,22 +85,22 @@ class Field:
     def process_species(self, prop):
         """ Process a species field """
         comma_split = prop.split(',')
-        if args.verbose:
+        if gverbose:
             print(self.name)
             print(self.field_type)
             print(comma_split)
         if len(comma_split) > 1:
             eq_splits = [x.split('=') for x in comma_split]
-            if args.verbose:
+            if gverbose:
                 print('printing eq_splits')
                 print(eq_splits)
             for idx, sub_param in enumerate(eq_splits):
-                if args.verbose:
+                if gverbose:
                     print('printing len(sub_param)')
                     print(len(sub_param))
                 if len(sub_param) < 2:
                     eq_splits[0][1] += f',{sub_param[0]}'
-                    if args.verbose:
+                    if gverbose:
                         print(eq_splits)
             eq_splits = [x for x in eq_splits if len(x) > 1]
             for sub_param in eq_splits:
@@ -114,13 +116,13 @@ class Field:
 
     def process_tracer(self, prop):
         """ Process a tracer field """
-        if args.verbose:
+        if gverbose:
             print(len(prop))
         self.dict[prop[0]] = prop[1]
         if len(prop) > 2:
             self.dict[f'subparams{str(self.num_subparams)}'] = [OrderedDict()]
             self.num_subparams += 1
-            if args.verbose:
+            if gverbose:
                 print(self.name)
                 print(self.field_type)
                 print(prop[2:])
@@ -227,7 +229,7 @@ class FieldYaml:
 
     def populate_entries(self):
        """ Populate entries as OrderedDicts """
-       for h, t in zip(self.heads, self.tails)
+       for h, t in zip(self.heads, self.tails):
               head_list = [y.lower() for y in h.split(',')]
               tail_list = [x.split(',') for x in t]
               if (head_list[0], head_list[1]) in self.ordered_keys.keys():
