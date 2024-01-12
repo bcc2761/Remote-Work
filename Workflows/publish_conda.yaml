@@ -1,19 +1,27 @@
-name: publish_conda
+name: Build and Upload Conda
 
 on:
-  release:
-    types: [published]
-    
+  push:
+    branches:
+      - main
+  # release:
+    # types: [published]
+
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: publish-to-conda
-      uses: MichaelsJP/conda-package-publish-action@v1.0.0
-      with:
-        subDir: '.conda'
-        AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}
-        platforms: 'all'
-        override: true
-        dry_run: true
+  container:
+    image: continuumio/miniconda3
+    
+
+# jobs:
+  # publish:
+    # runs-on: ubuntu-latest
+    # steps:
+    # - uses: actions/checkout@v1
+    # - name: publish-to-conda
+      # uses: MichaelsJP/conda-package-publish-action@v1.0.0
+      # with:
+        # subDir: '.conda'
+        # AnacondaToken: ${{ secrets.USERNAME_TOKEN }}
+        # platforms: 'all'
+        # override: true
+        # dry_run: true
